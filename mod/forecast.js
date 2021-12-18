@@ -1,8 +1,7 @@
 const request = require("postman-request");
 // const geocoding = require('geocoding');
-
 const forecast = (x , y , callback) =>{
-    const url2 = `https://api.mapbox.com/geocoding/v5/mapbox.places/${x},${y}.json?access_token=pk.eyJ1Ijoic3dhdGkxNzUyIiwiYSI6ImNreGFlaDkzdDNpZDcycXB6MG5tOGIzOWYifQ.ft8e3P3fg-f5OXPat6AlJg`;
+    const url2 = `http://api.weatherstack.com/current?access_key=d4ccf933ce01e0e713f676ed3d7232e1&query=${x},${y}&units=f`;
     request({url:url2 , JSON:true},(error, res)=>{
         if(error){
             callback("Unable to connect to location services",undefined);
@@ -12,7 +11,8 @@ const forecast = (x , y , callback) =>{
         }
         else {
             const d = JSON.parse(res.body);
-            callback(d,url2);
+            const forecast = `Temperature of the place ${d.location.name} , ${d.location.country} at time ${d.current.observation_time} is ${d.current.temperature} and visiblity is ${d.current.visibility}`;
+            callback(error,forecast);
         }
         }      
     )}

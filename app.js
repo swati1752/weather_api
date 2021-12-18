@@ -6,12 +6,14 @@ const forecast = require('./mod/forecast');
 
 
 geocoding('Bosten' , (err,data) =>{
-    var x = data.latitude;
-    var y = data.longitude;
-    // var places = data.location;
-    forecast(x , y , (data, url) =>{
+    if(err){
+        return console.log(`no connection`);
+    }
+    forecast(  data.latitude, data.longitude , (err,data) =>{
+        if(err){
+            return console.log(`no connect`);
+        }
         console.log(data);
-        console.log(url);
     })
 })
 
