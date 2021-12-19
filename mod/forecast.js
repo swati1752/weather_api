@@ -11,7 +11,7 @@ const forecast = (x , y , callback) =>{
         }
         else {
             const d = JSON.parse(res.body);
-            const forecast = `Temperature of the place ${d.location.name} , ${d.location.country} at time ${d.current.observation_time} is ${d.current.temperature} and visiblity is ${d.current.visibility}`;
+            const forecast = `Temperature of the place at time ${d.current.observation_time} is ${d.current.temperature} and visiblity is ${d.current.visibility}`;
             callback(error,forecast);
         }
         }      

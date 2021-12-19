@@ -3,7 +3,7 @@ const path = require('path');
 const hbs = require('hbs');
 const geocoding = require('./mod/geocoding');
 const forecast = require('./mod/forecast');
-const { hasSubscribers } = require('diagnostics_channel');
+// const { hasSubscribers } = require('diagnostics_channel');
 
 // const url = 'http://api.weatherstack.com/current?access_key=d4ccf933ce01e0e713f676ed3d7232e1&query=37.8267,-122.4233';
 
@@ -32,39 +32,36 @@ app.get('/help', (req,res)=>{
     res.render('help');
 })
 
+app.get('/weather' , (req,res) =>{
+    if(!req.query.address){
+        return res.send({error:'you must provide address!'});
+    }
+    else {
+    geocoding( req.query.address , (err,{latitude, longitude , location} = {}) =>{
+        if(err){
+            return res.send({error});
+        }
+        forecast(  latitude, longitude , (err,forecastData) =>{
+            if(err){
+                return res.send({error})
+            }
+            res.send({
+                forecast:forecastData,
+                location,
+                address: req.query.address
+            })
+        })
+    })
+
+}
+
+})
+
+
 app.get("*" , (req,res)=>{
     res.render('pg404');
 })
 
-const address = process.argv[2];
-
-if(!address)
-{
-    console.log(`please provide address`);
-}
-else {
-geocoding( address , (err,data) =>{
-    if(err){
-        return console.log(`no connection`);
-    }
-    forecast(  data.latitude, data.longitude , (err,data) =>{
-        if(err){
-            return console.log(`no connect`);
-        }
-        console.log(data);
-    })
-})
-
-}
-
-// forecast("Los Angeles" , (error, data)=>{
-//     console.log(error);
-//     console.log(data); 
-// });
-
-// forecast(3 , 4, (u)=>{
-//     console.log(`hey its ${u} `);
-// });
 
 app.listen(3000 , ()=>{
     console.log(`Server running at PORT 3000`);
