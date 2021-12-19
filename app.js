@@ -3,7 +3,6 @@ const path = require('path');
 const hbs = require('hbs');
 const geocoding = require('./mod/geocoding');
 const forecast = require('./mod/forecast');
-// const { hasSubscribers } = require('diagnostics_channel');
 
 // const url = 'http://api.weatherstack.com/current?access_key=d4ccf933ce01e0e713f676ed3d7232e1&query=37.8267,-122.4233';
 
