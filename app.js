@@ -38,12 +38,12 @@ app.get('/weather' , (req,res) =>{
         return res.send({error:'you must provide address!'});
     }
     else {
-    geocoding( req.query.address , (err,{latitude, longitude , location} = {}) =>{
-        if(err){
+    geocoding( req.query.address , (error,{latitude, longitude , location} = {}) =>{
+        if(error){
             return res.send({error});
         }
-        forecast(  latitude, longitude , (err,forecastData) =>{
-            if(err){
+        forecast(  latitude, longitude , (error,forecastData) =>{
+            if(error){
                 return res.send({error})
             }
             res.send({
@@ -60,7 +60,11 @@ app.get('/weather' , (req,res) =>{
 
 
 app.get("*" , (req,res)=>{
-    res.render('pg404');
+    res.render('pg404',{
+        title:"404",
+        name:"Unknown",
+        errorMsg:"Page Not Found"
+    });
 })
 
 
