@@ -10,7 +10,7 @@ const forecast = (x , y , callback) =>{
         }
         else {
             const d = JSON.parse(res.body);
-            const forecast = `Temperature of the place at time ${d.current.observation_time} is ${d.current.temperature}°C and there is ${d.current.precip}% possiblity of rain`;
+            const forecast = `Temperature of the place at time ${d.current.observation_time} is ${d.current.temperature}°C and ${d.current.precip}% possiblity of rain`;
             callback(error,forecast);
         }
         }      

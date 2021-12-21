@@ -6,7 +6,7 @@ const url1 = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?
             callback("Unable to connect to location services",undefined);
         }
         else if(JSON.parse(res.body).features.length === 0){
-            callback("Enter correct location",undefined);
+            callback("Enter valid location",undefined);
         }
         else {
             const d = JSON.parse(res.body);
